@@ -10,14 +10,19 @@
 
 ## Descrição resumida do projeto
 
-Nosso Projeto consiste em uma automação residencial, ou seja, Acender lampadas pela internet.
+Nosso Projeto consiste em uma automação para controle de temperatura e um projeto a parte de um sistema de semáforo com módulo bluetooth.
 
 ## Materiais Utilizados
 
-Montaremos um circuito com um modulo relé de 2 canais 5V e 2 lampadas ligadas a rede eletrica de 220V
-
-
-_______________________________________
+Arduino Uno
+Proto Board
+Termostato WA129
+Semáforo de led
+Módulo Bluetooth 
+Jumpers
+Resistor 1K 
+Resistor 2K2
+______________________________________
 Obs:
 
 `src/` deve conter os códigos desenvolvidos
