@@ -1,0 +1,67 @@
+#include <Blynk.h>
+#define BLYNK_PRINT DebugSerial
+#include <SoftwareSerial.h>
+SoftwareSerial DebugSerial(2, 3); // RX, TX
+
+#define termostato 10
+#define rele 9
+
+#include <BlynkSimpleStream.h>
+char auth[] = "d617ef45b549405c8345251304cbd9a4";
+
+BlynkTimer timer;
+
+void myTimerEvent(){
+  String text="Temperatura OK";
+    if (!digitalRead(termostato)){
+      text = "Temperatura Alta!";
+      Blynk.virtualWrite(V5, text);
+      while (!digitalRead(termostato)){
+        digitalWrite(13,HIGH);
+        delay(1000);
+        digitalWrite(13,!digitalRead(13));
+        delay(1000);
+        digitalWrite(11,LOW);
+        digitalWrite(rele,HIGH);
+      }
+      //Serial.println("Temperatura Alta");
+      
+      }
+    else{
+      Blynk.virtualWrite(V5, text);
+      text = "Temperatura OK";
+      digitalWrite(11,HIGH);
+      digitalWrite(rele,LOW);
+      digitalWrite(13,LOW);
+       }
+       delay(2000);
+}
+
+
+void setup() {
+//   put your setup code here, to run once:
+  //DebugSerial.begin(9600);
+  Serial.begin(9600);
+  Blynk.begin(Serial, auth);
+  pinMode (termostato, INPUT_PULLUP);
+  pinMode(rele, OUTPUT);
+  digitalWrite(rele, LOW);
+  pinMode(13, OUTPUT);
+  pinMode(11, OUTPUT);
+  digitalWrite(11, LOW);
+  digitalWrite(13, LOW);
+  timer.setInterval(1000L,myTimerEvent);
+
+
+}
+
+void loop() {
+  Blynk.run();
+  timer.run();
+
+}
+  
+   
+
+
+ 
